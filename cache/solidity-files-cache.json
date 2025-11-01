@@ -1,0 +1,327 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\Cursor-Ku\\demo13\\pro13\\contracts\\EncryptedOneTimeCode.sol": {
+      "lastModificationDate": 1763460262082,
+      "contentHash": "1884d82e92ef5961074755504be22d02",
+      "sourceName": "contracts/EncryptedOneTimeCode.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@fhevm/solidity/lib/FHE.sol",
+        "@fhevm/solidity/config/ZamaConfig.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "EncryptedOneTimeCode"
+      ]
+    },
+    "D:\\Cursor-Ku\\demo13\\pro13\\fhevmTemp\\@fhevm\\solidity\\config\\ZamaConfig.sol": {
+      "lastModificationDate": 1763521637497,
+      "contentHash": "36810e84dfdd27616b5eaf3b31ddc0a9",
+      "sourceName": "@fhevm/solidity/config/ZamaConfig.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@zama-fhe/oracle-solidity/address/ZamaOracleAddress.sol",
+        "@fhevm/solidity/lib/FHE.sol",
+        "@fhevm/solidity/lib/Impl.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "EthereumConfig",
+        "SepoliaConfig",
+        "ZamaConfig"
+      ]
+    },
+    "D:\\Cursor-Ku\\demo13\\pro13\\node_modules\\@fhevm\\solidity\\lib\\FHE.sol": {
+      "lastModificationDate": 1763458991806,
+      "contentHash": "4595eb92a31223262d4e29a27c938d97",
+      "sourceName": "@fhevm/solidity/lib/FHE.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Impl.sol",
+        "./FheType.sol",
+        "encrypted-types/EncryptedTypes.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "FHE",
+        "IDecryptionOracle",
+        "IKMSVerifier"
+      ]
+    },
+    "D:\\Cursor-Ku\\demo13\\pro13\\fhevmTemp\\@zama-fhe\\oracle-solidity\\address\\ZamaOracleAddress.sol": {
+      "lastModificationDate": 1763459081322,
+      "contentHash": "7d4cce05c3d5e3799454d5a9fba75048",
+      "sourceName": "@zama-fhe/oracle-solidity/address/ZamaOracleAddress.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": []
+    },
+    "D:\\Cursor-Ku\\demo13\\pro13\\node_modules\\@fhevm\\solidity\\lib\\Impl.sol": {
+      "lastModificationDate": 1763458992151,
+      "contentHash": "82d95a375319ded89a84a9323575b351",
+      "sourceName": "@fhevm/solidity/lib/Impl.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./FheType.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "IACL",
+        "IFHEVMExecutor",
+        "IInputVerifier",
+        "Impl"
+      ]
+    },
+    "D:\\Cursor-Ku\\demo13\\pro13\\node_modules\\@fhevm\\solidity\\lib\\FheType.sol": {
+      "lastModificationDate": 1763458991990,
+      "contentHash": "65f472a3e319ba73ac6b19a5e8660d15",
+      "sourceName": "@fhevm/solidity/lib/FheType.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": []
+    },
+    "D:\\Cursor-Ku\\demo13\\pro13\\node_modules\\encrypted-types\\EncryptedTypes.sol": {
+      "lastModificationDate": 1763458990863,
+      "contentHash": "521a624fad71cd29fc4b7c443b41bb86",
+      "sourceName": "encrypted-types/EncryptedTypes.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "metadata": {
+            "bytecodeHash": "none",
+            "useLiteralContent": true
+          },
+          "optimizer": {
+            "enabled": true,
+            "runs": 800
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": []
+    }
+  }
+}
