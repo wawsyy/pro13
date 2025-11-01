@@ -9,20 +9,21 @@ A fully homomorphic encryption (FHE) based system for verifying one-time codes w
 - **Rainbow Wallet Support**: Connect using Rainbow wallet with a modern UI
 - **Full Encryption Pipeline**: Complete workflow from code encryption to result decryption
 - **Security First**: Implements robust encryption protocols ensuring data confidentiality
+- **Production Ready**: Deployed on Sepolia testnet with comprehensive testing
 
 ## Project Structure
 
 ```
 pro13/
 ├── contracts/              # Smart contracts
-�?  └── EncryptedOneTimeCode.sol
+�?  └── EncryptedOneTimeCode.sol
 ├── deploy/                 # Deployment scripts
 ├── test/                   # Test files
 ├── frontend/               # Next.js frontend
-�?  ├── app/               # Next.js app directory
-�?  ├── components/        # React components
-�?  ├── hooks/             # Custom React hooks
-�?  └── fhevm/             # FHEVM integration
+�?  ├── app/               # Next.js app directory
+�?  ├── components/        # React components
+�?  ├── hooks/             # Custom React hooks
+�?  └── fhevm/             # FHEVM integration
 └── tasks/                  # Hardhat tasks
 ```
 
