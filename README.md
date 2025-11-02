@@ -16,14 +16,14 @@ A fully homomorphic encryption (FHE) based system for verifying one-time codes w
 ```
 pro13/
 ├── contracts/              # Smart contracts
-�?  └── EncryptedOneTimeCode.sol
+�?  └── EncryptedOneTimeCode.sol
 ├── deploy/                 # Deployment scripts
 ├── test/                   # Test files
 ├── frontend/               # Next.js frontend
-�?  ├── app/               # Next.js app directory
-�?  ├── components/        # React components
-�?  ├── hooks/             # Custom React hooks
-�?  └── fhevm/             # FHEVM integration
+�?  ├── app/               # Next.js app directory
+�?  ├── components/        # React components
+�?  ├── hooks/             # Custom React hooks
+�?  └── fhevm/             # FHEVM integration
 └── tasks/                  # Hardhat tasks
 ```
 
