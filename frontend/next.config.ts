@@ -2,12 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   headers() {
-    // FHEVM requires COOP/COEP, but Base Account SDK conflicts with COOP: same-origin
-    // We'll set COEP only, which is less restrictive
+    // FHEVM requires both COOP and COEP for SharedArrayBuffer support
     return Promise.resolve([
       {
-        source: '/',
+        source: '/:path*',
         headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
           {
             key: 'Cross-Origin-Embedder-Policy',
             value: 'require-corp',
