@@ -338,7 +338,11 @@ export const useOneTimeCode = (parameters: {
         );
 
         const result = res[resultHandle];
-        setDecryptedResult(result === true || result === 1 || result === BigInt(1));
+        setDecryptedResult(
+          result === true || 
+          (typeof result === 'bigint' && result === BigInt(1)) ||
+          (typeof result === 'string' && result === '1')
+        );
         setMessage("Result decrypted successfully!");
       } catch (e: any) {
         setMessage(`Decrypt failed: ${e.message}`);
