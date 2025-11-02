@@ -1,4 +1,4 @@
-"use client";
+ï»¿"use client";
 
 import { useEffect, useState } from "react";
 import { useFhevm } from "@/fhevm/useFhevm";
@@ -216,8 +216,8 @@ export const OneTimeCodeVerification = () => {
             oneTimeCode.isDecrypted
               ? oneTimeCode.decryptedResult !== undefined
                 ? oneTimeCode.decryptedResult
-                  ? "âœ?Match (true)"
-                  : "âœ?No Match (false)"
+                  ? "âœ“ Match (true)"
+                  : "âœ— No Match (false)"
                 : "Not decrypted"
               : "Not decrypted"
           )}
