@@ -101,7 +101,7 @@ export const OneTimeCodeVerification = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {printProperty("ChainId", chainId)}
               {printProperty("Address", address || "No address")}
-              {printProperty("Signer", ethersSigner ? ethersSigner.address : "No signer")}
+              {printProperty("Signer", ethersSigner?.address || "No signer")}
             </div>
 
             <p className={titleClass}>Contract</p>
