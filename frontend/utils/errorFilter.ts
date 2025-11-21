@@ -13,6 +13,19 @@ const IGNORED_ERROR_PATTERNS = [
   /net::ERR_BLOCKED_BY_RESPONSE/i,
   /ERR_CONNECTION_CLOSED/i,
   /relayer\.testnet\.zama.*input-proof/i, // Filter relayer network errors, but keep user-facing errors
+  /Base Account SDK.*Cross-Origin-Opener-Policy/i, // Base Account SDK conflict with FHEVM COOP requirement
+  /Base Account SDK requires the Cross-Origin-Opener-Policy header/i, // Base Account SDK COOP requirement error
+  /Base Account SDK requires.*Cross-Origin-Opener-Policy.*not be set/i, // More specific Base Account SDK error
+  /Base Account SDK requires.*header.*not be set to.*same-origin/i, // Most specific Base Account SDK error format
+  /Cross-Origin-Opener-Policy.*not be set to.*same-origin/i, // COOP same-origin warnings from Base Account SDK
+  /Cross-Origin-Opener-Policy.*same-origin/i, // COOP same-origin warnings from Base Account SDK
+  /Base Account SDK.*COOP/i, // Alternative Base Account SDK error format
+  /checkCrossOriginOpenerPolicy/i, // Base Account SDK internal check function
+  /docs\.base\.org.*cross-origin-opener-policy/i, // Base Account SDK documentation links
+  /docs\.base\.org.*smart-wallet.*quickstart/i, // Base Account SDK documentation links (alternative format)
+  /@base-org\/account/i, // Base Account SDK package name
+  /9e883_%40base-org_account/i, // Base Account SDK chunk file name
+  /9e883_.*@base-org.*account/i, // Base Account SDK chunk file name (alternative format)
 ];
 
 // List of error sources to filter out
@@ -20,6 +33,8 @@ const IGNORED_ERROR_SOURCES = [
   'coinbase.com',
   'analytics',
   'relayer.testnet.zama',
+  '@base-org/account',
+  'base-org',
 ];
 
 /**
@@ -73,8 +88,23 @@ export function setupErrorFiltering() {
       }
     }).join(' ');
 
+    // Also check individual arguments for better matching
+    const allErrorText = args.map(arg => {
+      if (typeof arg === 'string') return arg;
+      if (arg instanceof Error) return arg.message;
+      return String(arg);
+    }).join(' ');
+
+    // Check stack traces if available
+    const stackTraces = args
+      .filter(arg => arg instanceof Error && arg.stack)
+      .map(arg => (arg as Error).stack || '')
+      .join(' ');
+
+    const combinedErrorText = errorString + ' ' + allErrorText + ' ' + stackTraces;
+
     // Check if this error should be ignored
-    if (shouldIgnoreError(errorString)) {
+    if (shouldIgnoreError(combinedErrorText)) {
       // Silently ignore - these are non-critical third-party SDK errors
       return;
     }

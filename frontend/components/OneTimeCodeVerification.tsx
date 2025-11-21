@@ -50,27 +50,32 @@ export const OneTimeCodeVerification = () => {
   });
 
   const buttonClass =
-    "inline-flex items-center justify-center rounded-xl bg-black px-4 py-4 font-semibold text-white shadow-sm " +
-    "transition-colors duration-200 hover:bg-blue-700 active:bg-blue-800 " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 " +
-    "disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-3 font-semibold text-white shadow-lg " +
+    "transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95 " +
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 " +
+    "disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed";
 
-  const titleClass = "font-semibold text-black text-lg mt-4";
+  const titleClass = "font-semibold text-gray-800 text-xl mb-4 pb-2 border-b border-gray-200";
 
   // Prevent hydration mismatch by only rendering wallet-dependent content on client
   if (!mounted) {
     return (
-      <div className="mx-auto flex flex-col items-center gap-4">
-        <h2 className="text-2xl font-bold">Loading...</h2>
+      <div className="mx-auto flex flex-col items-center gap-4 py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+        <h2 className="text-2xl font-bold text-gray-800">Loading...</h2>
       </div>
     );
   }
 
   if (!isConnected) {
     return (
-      <div className="mx-auto flex flex-col items-center gap-4">
-        <h2 className="text-2xl font-bold">Connect Your Wallet</h2>
-        <ConnectButton />
+      <div className="mx-auto flex flex-col items-center gap-6 py-12 px-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="text-5xl mb-4">🔐</div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Connect Your Wallet</h2>
+          <p className="text-gray-600 mb-6">Please connect your wallet to start using encrypted one-time code verification</p>
+          <ConnectButton />
+        </div>
       </div>
     );
   }
@@ -80,89 +85,101 @@ export const OneTimeCodeVerification = () => {
   }
 
   return (
-    <div className="grid w-full gap-4">
-      <div className="col-span-full mx-20 bg-black text-white">
-        <p className="font-semibold text-3xl m-5">
+    <div className="grid w-full gap-6 max-w-6xl mx-auto px-4">
+      <div className="col-span-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-xl p-6 text-white">
+        <h2 className="font-bold text-3xl mb-2">
           Encrypted One-Time Code Verification
-        </p>
+        </h2>
+        <p className="text-purple-100 text-sm">Secure verification powered by FHEVM</p>
       </div>
 
-      <div className="col-span-full mx-20 mt-4 px-5 pb-4 rounded-lg bg-white border-2 border-black">
-        <p className={titleClass}>Chain Information</p>
-        {printProperty("ChainId", chainId)}
-        {printProperty("Address", address || "No address")}
-        {printProperty("Signer", ethersSigner ? ethersSigner.address : "No signer")}
+      {/* Debug information cards - hidden for cleaner UI */}
+      {false && (
+        <>
+          <div className="col-span-full bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+            <p className={titleClass}>Chain Information</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {printProperty("ChainId", chainId)}
+              {printProperty("Address", address || "No address")}
+              {printProperty("Signer", ethersSigner ? ethersSigner.address : "No signer")}
+            </div>
 
-        <p className={titleClass}>Contract</p>
-        {printProperty("Contract Address", oneTimeCode.contractAddress)}
-        {printProperty("isDeployed", oneTimeCode.isDeployed)}
-        {printProperty("isInitialized", oneTimeCode.isInitialized)}
-      </div>
+            <p className={titleClass}>Contract</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {printProperty("Contract Address", oneTimeCode.contractAddress)}
+              {printProperty("isDeployed", oneTimeCode.isDeployed)}
+              {printProperty("isInitialized", oneTimeCode.isInitialized)}
+            </div>
+          </div>
 
-      <div className="col-span-full mx-20">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-lg bg-white border-2 border-black pb-4 px-4">
-            <p className={titleClass}>FHEVM Instance</p>
-            {printProperty("Fhevm Instance", fhevmInstance ? "OK" : "undefined")}
-            {printProperty("Fhevm Status", fhevmStatus)}
-            {fhevmError ? (
-              <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded">
-                <p className="text-red-800 text-sm font-semibold">FHEVM Error:</p>
-                <p className="text-red-600 text-xs mt-1">{fhevmError.message || String(fhevmError)}</p>
-                {fhevmStatus === "error" && (
-                  <div className="text-red-500 text-xs mt-1 space-y-1">
-                    {chainId === 11155111 ? (
-                      <>
-                        <p>⚠️ Sepolia network requires Zama Relayer service.</p>
-                        <p>Possible issues:</p>
-                        <ul className="list-disc list-inside ml-2">
-                          <li>Relayer service temporarily unavailable</li>
-                          <li>Network connection issues</li>
-                          <li>Please try again later or use localhost for testing</li>
-                        </ul>
-                      </>
-                    ) : (
-                      <p>Note: This may be a network issue. The app will work in mock mode on localhost.</p>
+          <div className="col-span-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="rounded-xl bg-white shadow-lg border border-gray-200 p-6">
+                <p className={titleClass}>FHEVM Instance</p>
+                {printProperty("Fhevm Instance", fhevmInstance ? "OK" : "undefined")}
+                {printProperty("Fhevm Status", fhevmStatus)}
+                {fhevmError ? (
+                  <div className="mt-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
+                    <p className="text-red-800 text-sm font-semibold mb-2">FHEVM Error:</p>
+                    <p className="text-red-600 text-xs mb-3">{fhevmError.message || String(fhevmError)}</p>
+                    {fhevmStatus === "error" && (
+                      <div className="text-red-500 text-xs space-y-1">
+                        {chainId === 11155111 ? (
+                          <>
+                            <p className="font-semibold mb-1">⚠️ Sepolia network requires Zama Relayer service.</p>
+                            <p className="mb-1">Possible issues:</p>
+                            <ul className="list-disc list-inside ml-2 space-y-1">
+                              <li>Relayer service temporarily unavailable</li>
+                              <li>Network connection issues</li>
+                              <li>Please try again later or use localhost for testing</li>
+                            </ul>
+                          </>
+                        ) : (
+                          <p>Note: This may be a network issue. The app will work in mock mode on localhost.</p>
+                        )}
+                      </div>
                     )}
+                    <div className="mt-3 pt-3 border-t border-red-200 text-xs text-gray-600">
+                      <p>💡 Tip: Check your network connection and try refreshing the page.</p>
+                    </div>
                   </div>
+                ) : (
+                  printProperty("Fhevm Error", "No Error")
                 )}
-                <div className="mt-2 text-xs text-gray-600">
-                  <p>💡 Tip: Check your network connection and try refreshing the page.</p>
+              </div>
+              <div className="rounded-xl bg-white shadow-lg border border-gray-200 p-6">
+                <p className={titleClass}>Status</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {printProperty("isSettingCode", oneTimeCode.isSettingCode)}
+                  {printProperty("isVerifying", oneTimeCode.isVerifying)}
+                  {printProperty("isDecrypting", oneTimeCode.isDecrypting)}
+                  {printProperty("canSetCode", oneTimeCode.canSetCode)}
+                  {printProperty("canVerify", oneTimeCode.canVerify)}
+                  {printProperty("canDecrypt", oneTimeCode.canDecrypt)}
                 </div>
               </div>
-            ) : (
-              printProperty("Fhevm Error", "No Error")
-            )}
+            </div>
           </div>
-          <div className="rounded-lg bg-white border-2 border-black pb-4 px-4">
-            <p className={titleClass}>Status</p>
-            {printProperty("isSettingCode", oneTimeCode.isSettingCode)}
-            {printProperty("isVerifying", oneTimeCode.isVerifying)}
-            {printProperty("isDecrypting", oneTimeCode.isDecrypting)}
-            {printProperty("canSetCode", oneTimeCode.canSetCode)}
-            {printProperty("canVerify", oneTimeCode.canVerify)}
-            {printProperty("canDecrypt", oneTimeCode.canDecrypt)}
-          </div>
-        </div>
-      </div>
+        </>
+      )}
 
       {/* Set Expected Code Section */}
       {!oneTimeCode.isInitialized && (
-        <div className="col-span-full mx-20 px-4 pb-4 rounded-lg bg-white border-2 border-black">
+        <div className="col-span-full bg-white rounded-xl shadow-lg border border-gray-200 p-6">
           <p className={titleClass}>Set Expected Code</p>
-          <div className="flex gap-4 items-end">
-            <div className="flex-1">
-              <label className="block text-sm font-medium mb-2">Expected Code</label>
+          <div className="flex flex-col md:flex-row gap-4 items-end">
+            <div className="flex-1 w-full">
+              <label className="block text-sm font-medium mb-2 text-gray-700">Expected Code</label>
               <input
                 type="number"
                 value={oneTimeCode.expectedCodeInput}
                 onChange={(e) => oneTimeCode.setExpectedCodeInput(e.target.value)}
-                className="w-full px-4 py-2 border-2 border-black rounded"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none"
                 placeholder="Enter expected code"
               />
             </div>
             <button
-              className={buttonClass}
+              className={buttonClass + " w-full md:w-auto"}
               disabled={!oneTimeCode.canSetCode}
               onClick={oneTimeCode.setExpectedCode}
             >
@@ -178,21 +195,21 @@ export const OneTimeCodeVerification = () => {
 
       {/* Verify Code Section */}
       {oneTimeCode.isInitialized && (
-        <div className="col-span-full mx-20 px-4 pb-4 rounded-lg bg-white border-2 border-black">
+        <div className="col-span-full bg-white rounded-xl shadow-lg border border-gray-200 p-6">
           <p className={titleClass}>Verify Code</p>
-          <div className="flex gap-4 items-end">
-            <div className="flex-1">
-              <label className="block text-sm font-medium mb-2">Enter Code to Verify</label>
+          <div className="flex flex-col md:flex-row gap-4 items-end">
+            <div className="flex-1 w-full">
+              <label className="block text-sm font-medium mb-2 text-gray-700">Enter Code to Verify</label>
               <input
                 type="number"
                 value={oneTimeCode.verifyCodeInput}
                 onChange={(e) => oneTimeCode.setVerifyCodeInput(e.target.value)}
-                className="w-full px-4 py-2 border-2 border-black rounded"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none"
                 placeholder="Enter code to verify"
               />
             </div>
             <button
-              className={buttonClass}
+              className={buttonClass + " w-full md:w-auto"}
               disabled={!oneTimeCode.canVerify}
               onClick={oneTimeCode.verifyCode}
             >
@@ -208,21 +225,23 @@ export const OneTimeCodeVerification = () => {
 
       {/* Result Section */}
       {oneTimeCode.resultHandle && (
-        <div className="col-span-full mx-20 px-4 pb-4 rounded-lg bg-white border-2 border-black">
+        <div className="col-span-full bg-white rounded-xl shadow-lg border border-gray-200 p-6">
           <p className={titleClass}>Verification Result</p>
-          {printProperty("Result Handle", oneTimeCode.resultHandle)}
-          {printProperty(
-            "Decrypted Result",
-            oneTimeCode.isDecrypted
-              ? oneTimeCode.decryptedResult !== undefined
-                ? oneTimeCode.decryptedResult
-                  ? "✓ Match (true)"
-                  : "✗ No Match (false)"
+          <div className="space-y-3 mb-4">
+            {printProperty("Result Handle", oneTimeCode.resultHandle)}
+            {printProperty(
+              "Decrypted Result",
+              oneTimeCode.isDecrypted
+                ? oneTimeCode.decryptedResult !== undefined
+                  ? oneTimeCode.decryptedResult
+                    ? "✓ Match (true)"
+                    : "✗ No Match (false)"
+                  : "Not decrypted"
                 : "Not decrypted"
-              : "Not decrypted"
-          )}
+            )}
+          </div>
           <button
-            className={buttonClass + " mt-4"}
+            className={buttonClass + " w-full"}
             disabled={!oneTimeCode.canDecrypt}
             onClick={oneTimeCode.decryptResult}
           >
@@ -237,9 +256,15 @@ export const OneTimeCodeVerification = () => {
         </div>
       )}
 
-      <div className="col-span-full mx-20 p-4 rounded-lg bg-white border-2 border-black">
-        {printProperty("Message", oneTimeCode.message)}
-      </div>
+      {oneTimeCode.message && (
+        <div className="col-span-full bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">💬</span>
+            <p className="font-semibold text-gray-800">Status Message</p>
+          </div>
+          <p className="text-gray-600">{oneTimeCode.message}</p>
+        </div>
+      )}
     </div>
   );
 };
@@ -263,36 +288,31 @@ function printProperty(name: string, value: unknown) {
     displayValue = JSON.stringify(value);
   }
   return (
-    <p className="text-black">
-      {name}:{" "}
-      <span className="font-mono font-semibold text-black">{displayValue}</span>
-    </p>
+    <div className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+      <span className="text-sm font-medium text-gray-600">{name}:</span>
+      <span className="font-mono text-sm font-semibold text-gray-800 break-all text-right">{displayValue}</span>
+    </div>
   );
 }
 
 function printBooleanProperty(name: string, value: boolean) {
   if (value) {
     return (
-      <p className="text-black">
-        {name}:{" "}
-        <span className="font-mono font-semibold text-green-500">true</span>
-      </p>
+      <div className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+        <span className="text-sm font-medium text-gray-600">{name}:</span>
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          ✓ true
+        </span>
+      </div>
     );
   }
 
   return (
-    <p className="text-black">
-      {name}:{" "}
-      <span className="font-mono font-semibold text-red-500">false</span>
-    </p>
+    <div className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+      <span className="text-sm font-medium text-gray-600">{name}:</span>
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+        ✗ false
+      </span>
+    </div>
   );
 }
-
-
-// Auto-generated commit 1 by wswsyy at 11/01/2025 16:00:00
-// Auto-generated commit 1 by wawsyy at 11/01/2025 21:00:00
-// Auto-generated commit 1 by wswsyy at 11/02/2025 02:00:00
-// Auto-generated commit 3 by wswsyy at 11/01/2025 14:00:00
-// Auto-generated commit 3 by wawsyy at 11/01/2025 19:00:00
-// Auto-generated commit 3 by wswsyy at 11/02/2025 00:00:00
-// Auto-generated commit 3 by wawsyy at 11/02/2025 05:00:00
