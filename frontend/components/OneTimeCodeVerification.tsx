@@ -121,7 +121,7 @@ export const OneTimeCodeVerification = () => {
                 {fhevmError ? (
                   <div className="mt-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
                     <p className="text-red-800 text-sm font-semibold mb-2">FHEVM Error:</p>
-                    <p className="text-red-600 text-xs mb-3">{fhevmError.message || String(fhevmError)}</p>
+                    <p className="text-red-600 text-xs mb-3">{fhevmError?.message || String(fhevmError || 'Unknown error')}</p>
                     {fhevmStatus === "error" && (
                       <div className="text-red-500 text-xs space-y-1">
                         {chainId === 11155111 ? (
