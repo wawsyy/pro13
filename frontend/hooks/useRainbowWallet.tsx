@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount, useChainId, useConnect, useDisconnect, useWalletClient } from "wagmi";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 export function useRainbowWallet() {
@@ -16,8 +16,9 @@ export function useRainbowWallet() {
 
   useEffect(() => {
     if (walletClient && isConnected) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const provider = new ethers.BrowserProvider(walletClient as any);
-      provider.getSigner().then((signer) => {
+      void provider.getSigner().then((signer) => {
         setEthersSigner(signer);
         setEthersProvider(provider);
       });

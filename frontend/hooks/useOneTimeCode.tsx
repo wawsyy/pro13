@@ -2,7 +2,6 @@
 
 import { ethers } from "ethers";
 import {
-  RefObject,
   useCallback,
   useEffect,
   useMemo,
@@ -81,7 +80,7 @@ export const useOneTimeCode = (parameters: {
   const isSettingCodeRef = useRef<boolean>(false);
   const isVerifyingRef = useRef<boolean>(false);
   const isDecryptingRef = useRef<boolean>(false);
-  const resultHandleRef = useRef<string | undefined>(undefined);
+  const _resultHandleRef = useRef<string | undefined>(undefined);
 
   const contract = useMemo(() => {
     const c = getContractByChainId(chainId);
@@ -156,7 +155,7 @@ export const useOneTimeCode = (parameters: {
       }
     };
 
-    checkInitialized();
+    void checkInitialized();
   }, [contract.address, contract.abi, ethersReadonlyProvider]);
 
   const setExpectedCode = useCallback(() => {
@@ -201,8 +200,9 @@ export const useOneTimeCode = (parameters: {
         setMessage(`Set expected code completed status=${receipt?.status}`);
         setIsInitialized(true);
         setExpectedCodeInput("");
-      } catch (e: any) {
-        let errorMessage = e.message || String(e);
+      } catch (e: unknown) {
+        const error = e as { message?: string };
+        let errorMessage = error.message || String(e);
         
         // Provide more helpful error messages for relayer issues
         if (errorMessage.includes("Relayer didn't response") || errorMessage.includes("relayer")) {
@@ -216,7 +216,7 @@ export const useOneTimeCode = (parameters: {
       }
     };
 
-    run();
+    void run();
   }, [contract.address, contract.abi, instance, ethersSigner, expectedCodeInput]);
 
   const verifyCode = useCallback(() => {
@@ -281,7 +281,7 @@ export const useOneTimeCode = (parameters: {
           // Reset decrypted result
           setDecryptedResult(undefined);
           setVerifyCodeInput("");
-        } catch (e: any) {
+        } catch (_e: unknown) {
           // If static call fails (because it's a state-changing function), 
           // we'll need to use a different approach
           // For now, note that the result is available but needs to be retrieved differently
@@ -291,15 +291,16 @@ export const useOneTimeCode = (parameters: {
           setDecryptedResult(undefined);
           setVerifyCodeInput("");
         }
-      } catch (e: any) {
-        setMessage(`Verify code failed: ${e.message}`);
+      } catch (e: unknown) {
+        const error = e as { message?: string };
+        setMessage(`Verify code failed: ${error.message || String(e)}`);
       } finally {
         isVerifyingRef.current = false;
         setIsVerifying(false);
       }
     };
 
-    run();
+    void run();
   }, [contract.address, contract.abi, instance, ethersSigner, verifyCodeInput]);
 
   const decryptResult = useCallback(() => {
@@ -344,15 +345,16 @@ export const useOneTimeCode = (parameters: {
           (typeof result === 'string' && result === '1')
         );
         setMessage("Result decrypted successfully!");
-      } catch (e: any) {
-        setMessage(`Decrypt failed: ${e.message}`);
+      } catch (e: unknown) {
+        const error = e as { message?: string };
+        setMessage(`Decrypt failed: ${error.message || String(e)}`);
       } finally {
         isDecryptingRef.current = false;
         setIsDecrypting(false);
       }
     };
 
-    run();
+    void run();
   }, [contract.address, instance, ethersSigner, resultHandle, fhevmDecryptionSignatureStorage]);
 
   return {

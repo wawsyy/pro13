@@ -17,14 +17,14 @@ export default function Home() {
           <div className="feature-icon text-4xl mb-4">🔒</div>
           <h3 className="feature-title text-xl font-semibold mb-2 text-gray-800">Privacy-Preserving</h3>
           <p className="feature-description text-gray-600 text-sm">
-            Verify codes without exposing either the user's input or the expected code value
+            Verify codes without exposing either the user&apos;s input or the expected code value
           </p>
         </div>
         <div className="feature-card bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
           <div className="feature-icon text-4xl mb-4">⚡</div>
           <h3 className="feature-title text-xl font-semibold mb-2 text-gray-800">FHEVM Powered</h3>
           <p className="feature-description text-gray-600 text-sm">
-            Built on Zama's FHEVM for encrypted computations on-chain with maximum security
+            Built on Zama&apos;s FHEVM for encrypted computations on-chain with maximum security
           </p>
         </div>
         <div className="feature-card bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">

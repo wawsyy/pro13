@@ -20,7 +20,6 @@ export const OneTimeCodeVerification = () => {
     address,
     isConnected,
     chainId,
-    connect,
     ethersSigner,
     ethersProvider,
     eip1193Provider,
@@ -43,7 +42,7 @@ export const OneTimeCodeVerification = () => {
   const oneTimeCode = useOneTimeCode({
     instance: fhevmInstance,
     fhevmDecryptionSignatureStorage,
-    eip1193Provider: ethersProvider as any,
+    eip1193Provider: ethersProvider as unknown as any,
     chainId,
     ethersSigner,
     ethersReadonlyProvider: ethersProvider,
@@ -94,6 +93,7 @@ export const OneTimeCodeVerification = () => {
       </div>
 
       {/* Debug information cards - hidden for cleaner UI */}
+      {/* eslint-disable-next-line no-constant-binary-expression */}
       {false && (
         <>
           <div className="col-span-full bg-white rounded-xl shadow-lg p-6 border border-gray-200">

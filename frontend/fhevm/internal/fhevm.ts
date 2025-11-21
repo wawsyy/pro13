@@ -89,7 +89,9 @@ async function getChainId(
     return Number.parseInt(chainId as string, 16);
   }
   // Fallback: try to get chainId from provider if it's an ethers provider
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (providerOrUrl && typeof (providerOrUrl as any).getNetwork === "function") {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const network = await (providerOrUrl as any).getNetwork();
     return Number(network.chainId);
   }

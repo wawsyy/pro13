@@ -76,6 +76,7 @@ export function setupErrorFiltering() {
   const originalWarn = console.warn;
 
   // Override console.error
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   console.error = (...args: any[]) => {
     // Convert all args to string for pattern matching
     const errorString = args.map(arg => {
@@ -114,6 +115,7 @@ export function setupErrorFiltering() {
   };
 
   // Override console.warn for similar filtering if needed
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   console.warn = (...args: any[]) => {
     // Convert all args to string for pattern matching
     const warningString = args.map(arg => {
