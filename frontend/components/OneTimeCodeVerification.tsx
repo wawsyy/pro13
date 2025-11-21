@@ -42,6 +42,7 @@ export const OneTimeCodeVerification = () => {
   const oneTimeCode = useOneTimeCode({
     instance: fhevmInstance,
     fhevmDecryptionSignatureStorage,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     eip1193Provider: ethersProvider as unknown as any,
     chainId,
     ethersSigner,

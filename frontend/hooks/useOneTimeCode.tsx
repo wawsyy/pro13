@@ -281,7 +281,7 @@ export const useOneTimeCode = (parameters: {
           // Reset decrypted result
           setDecryptedResult(undefined);
           setVerifyCodeInput("");
-        } catch (_e: unknown) {
+        } catch {
           // If static call fails (because it's a state-changing function), 
           // we'll need to use a different approach
           // For now, note that the result is available but needs to be retrieved differently
